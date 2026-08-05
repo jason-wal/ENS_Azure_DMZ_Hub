@@ -1,2 +1,2 @@
-# ENS_Template1
-Template repository
+# ENS Azure DMZ Hub vNet
+
