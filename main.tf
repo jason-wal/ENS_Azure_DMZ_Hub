@@ -294,7 +294,7 @@ resource "azurerm_subnet" "this" {
       for_each = !contains( each.value["Sub_Svc_Endpoints"], "null" ) ? toset(each.value["Sub_Svc_Endpoints"]) : []
       
       content {
-        service = each.key
+        service = each.value
       }
     }
 
