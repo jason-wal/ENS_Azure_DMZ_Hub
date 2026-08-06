@@ -291,7 +291,7 @@ resource "azurerm_subnet" "this" {
 
 
 
-/*
+
     dynamic "service_endpoint" {
       for_each = !contains( each.value["Sub_Svc_Endpoints"], "null" ) ? toset(each.value["Sub_Svc_Endpoints"]) : []
       
@@ -299,7 +299,7 @@ resource "azurerm_subnet" "this" {
         service = service_endpoint.key
       }
     }
-*/
+
 
     dynamic "delegation" {
         for_each = each.value["Sub_Delegation"] ? [1] : [] 
