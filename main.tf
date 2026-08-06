@@ -293,14 +293,27 @@ resource "azurerm_subnet" "this" {
               service = contains( each.value["Sub_Svc_Endpoints"], "null" ) ? null : each.value["Sub_Svc_Endpoints"]
             }
    */
-    
+
+    dynamic "service_endpoint" {
+      for_each = {
+                for k in each.value["Sub_Svc_Endpoints"] : k => v if !contains( each.value["Sub_Svc_Endpoints"], "null" )
+      }
+      content {
+        service = each.key
+      }
+    }
+
+
+
+/*
+
     dynamic "service_endpoint" {
       for_each = each.value["Sub_Svc_Endpoints"] != "null" ? each.value["Sub_Svc_Endpoints"] : []
       content {
         service = each.value["Sub_Svc_Endpoints"]
       }
     }
-
+*/
 
     dynamic "delegation" {
         for_each = each.value["Sub_Delegation"] ? [1] : [] 
