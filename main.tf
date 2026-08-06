@@ -290,11 +290,24 @@ resource "azurerm_subnet" "this" {
     private_link_service_network_policies_enabled = each.value["priv_link_net_pols"] 
 
 
+/*
+    dynamic "service_endpoint" {
+      for_each = {
+          for i in each.value["Sub_Svc_Endpoints"] , "null"
+      }
+        !contains( each.value["Sub_Svc_Endpoints"], "null" ) ? toset(each.value["Sub_Svc_Endpoints"]) : []
+      
+      content {
+        service = each.value
+      }
+    }
+*/
+
     dynamic "service_endpoint" {
       for_each = !contains( each.value["Sub_Svc_Endpoints"], "null" ) ? toset(each.value["Sub_Svc_Endpoints"]) : []
       
       content {
-        service = each.value
+        service = service_endpoint.value
       }
     }
 
