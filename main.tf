@@ -296,7 +296,7 @@ resource "azurerm_subnet" "this" {
 
     dynamic "service_endpoint" {
       for_each = {
-                for k in each.value["Sub_Svc_Endpoints"] : k => v if !contains( each.value["Sub_Svc_Endpoints"], "null" )
+                for k in each.value["Sub_Svc_Endpoints"] : k => k if !contains( each.value["Sub_Svc_Endpoints"], "null" )
       }
       content {
         service = each.key
