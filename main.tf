@@ -273,6 +273,7 @@ resource "azurerm_route" "peer_hub_v6" {
 
 
 
+
 #
 #---------------------------------------------------------
 # Create Subnets
