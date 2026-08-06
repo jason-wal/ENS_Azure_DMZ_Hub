@@ -289,31 +289,15 @@ resource "azurerm_subnet" "this" {
     default_outbound_access_enabled               = each.value["default_outbound_access_enabled"]  
     private_link_service_network_policies_enabled = each.value["priv_link_net_pols"] 
 
-  /*  service_endpoint {
-              service = contains( each.value["Sub_Svc_Endpoints"], "null" ) ? null : each.value["Sub_Svc_Endpoints"]
-            }
-   */
 
     dynamic "service_endpoint" {
-      for_each = {
-                for k in each.value["Sub_Svc_Endpoints"] : k => k if !contains( each.value["Sub_Svc_Endpoints"], "null" )
-      }
+      for_each = !contains( each.value["Sub_Svc_Endpoints"], "null" ) ? toset(each.value["Sub_Svc_Endpoints"]) : []
+      
       content {
         service = each.key
       }
     }
 
-
-
-/*
-
-    dynamic "service_endpoint" {
-      for_each = each.value["Sub_Svc_Endpoints"] != "null" ? each.value["Sub_Svc_Endpoints"] : []
-      content {
-        service = each.value["Sub_Svc_Endpoints"]
-      }
-    }
-*/
 
     dynamic "delegation" {
         for_each = each.value["Sub_Delegation"] ? [1] : [] 
