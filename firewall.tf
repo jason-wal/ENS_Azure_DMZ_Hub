@@ -30,7 +30,7 @@ resource "azurerm_resource_group" "fw_rsg" {
 #-------------------------------------------------------------
 #
 resource "azurerm_storage_account" "fw1" {
-    name                                = replace(lower("${var.prefix}fw1strg"),"_", "" )
+    name                                = replace(lower("${var.prefix}fw1"),"_", "" )
     resource_group_name                 = azurerm_resource_group.fw_rsg.name
     location                            = var.az_reg
     account_tier                        = "Standard" # Standard or Premium
@@ -50,7 +50,7 @@ resource "azurerm_storage_account" "fw1" {
 }
 
 resource "azurerm_storage_account" "fw2" {
-    name                                = replace(lower("${var.prefix}fw2strg"),"_", "" )
+    name                                = replace(lower("${var.prefix}fw2"),"_", "" )
     resource_group_name                 = azurerm_resource_group.fw_rsg.name
     location                            = var.az_reg
     account_tier                        = "Standard" # Standard or Premium
